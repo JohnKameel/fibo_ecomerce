@@ -1,0 +1,22 @@
+{
+  "Auth" : {
+    "Welcome to" : "Welcome to",
+    "Login" : "Login",
+    "Register" : "Register",
+    "email" : "email",
+    "password" : "password",
+    "Do not have an account yet" : "Do not have an account yet",
+    "username" : "username",
+    "Full Name" : "Full Name",
+    "Confirm Password" : "Confirm Password",
+    "Already have an account" : "Already have an account",
+    "It is great to see you again" : "It is great to see you again",
+    "Let is create your account" : "Let is create your account",
+    "Login account" : "Login account",
+    "Create account" : "Create account"
+  },
+  "Home" : {
+    "welcome" : "welcome",
+    "description" : "description"
+  }
+}
