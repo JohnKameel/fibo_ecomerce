@@ -1,6 +1,6 @@
 import 'package:fido_e/core/widgets/spacing_widget.dart';
-import 'package:fido_e/features/auth/presentian/register/register_screen_form.dart';
-import 'package:fido_e/features/auth/presentian/register/register_screen_logo.dart';
+import 'package:fido_e/features/auth/presentian/view/widgets/register_screen_form.dart';
+import 'package:fido_e/features/auth/presentian/view/widgets/register_screen_logo.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {

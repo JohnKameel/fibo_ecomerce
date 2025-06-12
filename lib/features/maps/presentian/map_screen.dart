@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:fido_e/core/style/app_colors.dart';
+import 'package:fido_e/core/widgets/custom_primary_button.dart';
+import 'package:fido_e/core/widgets/spacing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
@@ -119,24 +122,38 @@ class _MapScreenState extends State<MapScreen> {
             bottom: 0,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 50,
+              height: 150,
               color: Colors.white,
               child: Center(
-                child: Text(
-                  'Current Location: $cityName',
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                child: Column(
+                  children: [
+                    HeightSpace(10.h),
+                    Text(
+                      'Current Location: $cityName',
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    HeightSpace(20.h),
+                    CustomPrimaryButton(
+                      onPress: () {},
+                      buttonText: 'Save Location',
+                      width: 325.w,
+                      textColor: AppColors.primary,
+                      buttonColor: AppColors.primaryColor,
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
+
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          moveToPosition(currentLocation);
-        },
-        child: const Icon(Icons.fmd_good_rounded),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     moveToPosition(currentLocation);
+      //   },
+      //   child: const Icon(Icons.fmd_good_rounded),
+      // ),
     );
   }
 

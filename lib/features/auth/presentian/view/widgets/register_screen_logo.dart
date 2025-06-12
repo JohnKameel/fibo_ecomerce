@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/style/app_assets.dart';
-import '../../../../core/style/app_styles.dart';
-import '../../../../generated/locale_keys.g.dart';
+import '../../../../../core/style/app_assets.dart';
+import '../../../../../core/style/app_styles.dart';
+import '../../../../../generated/locale_keys.g.dart';
 
 class RegisterScreenLogo extends StatelessWidget {
   const RegisterScreenLogo({super.key});

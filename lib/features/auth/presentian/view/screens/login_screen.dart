@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/spacing_widget.dart';
-import 'login_screen_form.dart';
-import 'login_screen_logo.dart';
+import '../../../../../core/widgets/spacing_widget.dart';
+import '../widgets/login_screen_form.dart';
+import '../widgets/login_screen_logo.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

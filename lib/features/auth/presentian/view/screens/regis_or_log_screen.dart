@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/routing/router_app.dart';
-import '../../../core/style/app_styles.dart';
-import '../../../core/widgets/custom_primary_button.dart';
-import '../../../core/widgets/spacing_widget.dart';
-import '../../../generated/locale_keys.g.dart';
+import '../../../../../core/routing/router_app.dart';
+import '../../../../../core/style/app_styles.dart';
+import '../../../../../core/widgets/custom_primary_button.dart';
+import '../../../../../core/widgets/spacing_widget.dart';
+import '../../../../../generated/locale_keys.g.dart';
 
 class RegisOrLogScreen extends StatelessWidget {
   const RegisOrLogScreen({super.key});

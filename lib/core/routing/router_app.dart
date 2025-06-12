@@ -1,7 +1,7 @@
 
-import 'package:fido_e/features/auth/presentian/login/login_screen.dart';
-import 'package:fido_e/features/auth/presentian/regis_or_log_screen.dart';
-import 'package:fido_e/features/auth/presentian/register/register_screen.dart';
+import 'package:fido_e/features/auth/presentian/view/screens/login_screen.dart';
+import 'package:fido_e/features/auth/presentian/view/screens/regis_or_log_screen.dart';
+import 'package:fido_e/features/auth/presentian/view/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
