@@ -8,6 +8,10 @@ import 'package:fido_e/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:fido_e/features/auth/data/repo/auth_repository.dart';
 import 'package:fido_e/features/auth/presentian/viewModel/login_cubit.dart';
 import 'package:fido_e/features/auth/presentian/viewModel/register_cubit.dart';
+import 'package:fido_e/features/home/data/repo/category_repo_impl.dart';
+import 'package:fido_e/features/home/data/repo/home_repo.dart';
+import 'package:fido_e/features/home/data/repo/product_repo.dart';
+import 'package:fido_e/features/home/presentian/viewModel/category_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +19,11 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'core/routing/router_app.dart';
+import 'features/home/data/repo/category_repo.dart';
+import 'features/home/data/repo/home_repo_impl.dart';
+import 'features/home/data/repo/product_repo_impl.dart';
+import 'features/home/presentian/viewModel/home_cubit.dart';
+import 'features/home/presentian/viewModel/product_by_category_cubit.dart';
 import 'generated/codegen_loader.g.dart';
 import 'generated/locale_keys.g.dart';
 import 'network.dart';
@@ -25,6 +34,9 @@ void main() async {
   Dio dio = Dio();
   ApiConsumer apiConsumer = DioService(dio);
   AuthRepository authRepository = AuthRepoImpl(apiConsumer);
+  HomeRepo homeRepo = HomeRepoImpl(apiConsumer);
+  CategoryRepo categoryRepo = CategoryRepoImpl(apiConsumer);
+  ProductRepo productRepo = ProductRepoImpl(apiConsumer);
 
   runApp(EasyLocalization(
     path: "assets/translations",
@@ -38,6 +50,15 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => RegisterCubit(authRepository),
+        ),
+        BlocProvider(
+          create: (context) => HomeCubit(homeRepo),
+        ),
+        BlocProvider(
+          create: (context) => CategoryCubit(categoryRepo)..getAllCategories(),
+        ),
+        BlocProvider(
+          create: (context) => ProductByCategoryCubit(productRepo),
         ),
       ],
       child: MyApp(),
@@ -66,51 +87,38 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.language),
-            onPressed: () {
-              if (context.locale.languageCode == 'en') {
-                context.setLocale(const Locale('ar'));
-              } else {
-                context.setLocale(const Locale('en'));
-              }
-            },
-          ),
-          IconButton(
-            onPressed: () {
-              context.push(RouterApp.home);
-            },
-            icon: Icon(Icons.add_circle_outline),
-          ),
-        ],
-      ),
-      body: Center(
-        child: Text(LocaleKeys.Auth_username.tr()),
-      ),
-    );
-  }
-}
-
-class SecScreen extends StatelessWidget {
-  const SecScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [],
-      ),
-    );
-  }
-}
+// class HomeScreen extends StatelessWidget {
+//   const HomeScreen({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         actions: [
+//           IconButton(
+//             icon: const Icon(Icons.language),
+//             onPressed: () {
+//               if (context.locale.languageCode == 'en') {
+//                 context.setLocale(const Locale('ar'));
+//               } else {
+//                 context.setLocale(const Locale('en'));
+//               }
+//             },
+//           ),
+//           IconButton(
+//             onPressed: () {
+//               context.push(RouterApp.home);
+//             },
+//             icon: Icon(Icons.add_circle_outline),
+//           ),
+//         ],
+//       ),
+//       body: Center(
+//         child: Text(LocaleKeys.Auth_username.tr()),
+//       ),
+//     );
+//   }
+// }
 
 
 class MapSample extends StatefulWidget {

@@ -38,9 +38,9 @@ class DioService implements ApiConsumer {
   }
 
   @override
-  Future get(String url, Map<String, dynamic> body) async {
+  Future get(String url) async {
     try {
-      final response = await _dio.get(url, data: body);
+      final response = await _dio.get(url);
       return response.data;
     } catch (e) {
       rethrow;

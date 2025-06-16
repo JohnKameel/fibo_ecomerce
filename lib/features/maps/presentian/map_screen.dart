@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fido_e/core/routing/router_app.dart';
 import 'package:fido_e/core/style/app_colors.dart';
 import 'package:fido_e/core/widgets/custom_primary_button.dart';
 import 'package:fido_e/core/widgets/spacing_widget.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../data/repo/location_repo.dart';
@@ -134,7 +136,9 @@ class _MapScreenState extends State<MapScreen> {
                     ),
                     HeightSpace(20.h),
                     CustomPrimaryButton(
-                      onPress: () {},
+                      onPress: () {
+                        context.go(RouterApp.home);
+                      },
                       buttonText: 'Save Location',
                       width: 325.w,
                       textColor: AppColors.primary,
