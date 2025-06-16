@@ -1,12 +1,11 @@
-
 import 'package:fido_e/features/auth/presentian/view/screens/login_screen.dart';
 import 'package:fido_e/features/auth/presentian/view/screens/regis_or_log_screen.dart';
 import 'package:fido_e/features/auth/presentian/view/screens/register_screen.dart';
+import 'package:fido_e/features/home/presentian/view/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/maps/presentian/map_screen.dart';
-import '../../main.dart';
 
 class RouterApp {
   static const String splash = '/splash';
@@ -19,11 +18,6 @@ class RouterApp {
   static GoRouter goRoute = GoRouter(
     initialLocation: regOrLog,
     routes: [
-      GoRoute(
-          path: splash,
-          builder: (context, state) {
-            return const HomeScreen();
-          }),
       GoRoute(
           path: regOrLog,
           builder: (context, state) {
@@ -42,7 +36,7 @@ class RouterApp {
       GoRoute(
           path: home,
           builder: (context, state) {
-            return const SecScreen();
+            return const HomeScreen();
           }),
       GoRoute(
           path: map,
