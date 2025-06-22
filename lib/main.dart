@@ -4,10 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fido_e/core/network/api_consumer.dart';
 import 'package:fido_e/core/network/dio_service.dart';
+import 'package:fido_e/core/server_locator/server_locator.dart';
 import 'package:fido_e/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:fido_e/features/auth/data/repo/auth_repository.dart';
 import 'package:fido_e/features/auth/presentian/viewModel/login_cubit.dart';
 import 'package:fido_e/features/auth/presentian/viewModel/register_cubit.dart';
+import 'package:fido_e/features/cart/data/repo/cart_repo.dart';
+import 'package:fido_e/features/cart/presentation/viewModel/cart_cubit.dart';
 import 'package:fido_e/features/home/data/repo/category_repo_impl.dart';
 import 'package:fido_e/features/home/data/repo/home_repo.dart';
 import 'package:fido_e/features/home/data/repo/product_repo.dart';
@@ -19,6 +22,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'core/routing/router_app.dart';
+import 'features/cart/data/repo/cart_repo_impl.dart';
 import 'features/home/data/repo/category_repo.dart';
 import 'features/home/data/repo/home_repo_impl.dart';
 import 'features/home/data/repo/product_repo_impl.dart';
@@ -31,12 +35,16 @@ import 'network.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  setupServiceLocator();
+  // make image cache work    ---- package flutter_cache_image
   Dio dio = Dio();
   ApiConsumer apiConsumer = DioService(dio);
   AuthRepository authRepository = AuthRepoImpl(apiConsumer);
   HomeRepo homeRepo = HomeRepoImpl(apiConsumer);
   CategoryRepo categoryRepo = CategoryRepoImpl(apiConsumer);
   ProductRepo productRepo = ProductRepoImpl(apiConsumer);
+  CartRepo cartRepo = CartRepoImpl(apiConsumer);
+
 
   runApp(EasyLocalization(
     path: "assets/translations",
@@ -45,20 +53,23 @@ void main() async {
     assetLoader: const CodegenLoader(),
     child: MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => LoginCubit(authRepository),
+        BlocProvider( // getIt<LoginCubit>(),
+          create: (context) => getIt<LoginCubit>(),
         ),
         BlocProvider(
-          create: (context) => RegisterCubit(authRepository),
+          create: (context) => getIt<RegisterCubit>(),
         ),
         BlocProvider(
-          create: (context) => HomeCubit(homeRepo),
+          create: (context) => getIt<HomeCubit>(),
         ),
         BlocProvider(
-          create: (context) => CategoryCubit(categoryRepo)..getAllCategories(),
+          create: (context) => getIt<CategoryCubit>()..getAllCategories(),
         ),
         BlocProvider(
-          create: (context) => ProductByCategoryCubit(productRepo),
+          create: (context) => getIt<ProductByCategoryCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<CartCubit>(),
         ),
       ],
       child: MyApp(),

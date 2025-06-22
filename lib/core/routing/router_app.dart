@@ -1,10 +1,13 @@
 import 'package:fido_e/features/auth/presentian/view/screens/login_screen.dart';
 import 'package:fido_e/features/auth/presentian/view/screens/regis_or_log_screen.dart';
 import 'package:fido_e/features/auth/presentian/view/screens/register_screen.dart';
+import 'package:fido_e/features/cart/presentation/view/screens/cart_screen.dart';
+import 'package:fido_e/features/home/presentian/view/screens/details_screen.dart';
 import 'package:fido_e/features/home/presentian/view/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/home/data/model/product_model.dart';
 import '../../features/maps/presentian/map_screen.dart';
 
 class RouterApp {
@@ -14,6 +17,8 @@ class RouterApp {
   static const String regOrLog = '/regorlog';
   static const String login = '/login';
   static const String register = '/register';
+  static const String cart = '/cart';
+  static const String details = '/details';
 
   static GoRouter goRoute = GoRouter(
     initialLocation: regOrLog,
@@ -42,6 +47,19 @@ class RouterApp {
           path: map,
           builder: (context, state) {
             return const MapScreen();
+          }),
+      GoRoute(
+          path: cart,
+          builder: (context, state) {
+            return const CartScreen();
+          }),
+      GoRoute(
+          path: details,
+          builder: (context, state) {
+            ProductModel product = state.extra as ProductModel;
+            return DetailsScreen(
+              product: product,
+            );
           }),
     ],
     debugLogDiagnostics: true,

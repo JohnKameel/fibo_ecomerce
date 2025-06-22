@@ -1,6 +1,9 @@
+import 'package:fido_e/core/routing/router_app.dart';
+import 'package:fido_e/features/cart/presentation/viewModel/cart_cubit.dart';
 import 'package:fido_e/features/home/presentian/viewModel/product_by_category_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../viewModel/category_cubit.dart';
 
@@ -23,6 +26,18 @@ class _HomeScreenState extends State<HomeScreen> {
           'Home',
           style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<CartCubit>().getCart();
+              context.push(RouterApp.cart);
+            },
+            icon: const Icon(
+              Icons.shopping_cart,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -125,34 +140,42 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: products.length,
                       itemBuilder: (context, index) {
                         final product = products[index];
-                        return Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey.shade300),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Image.network(
-                                  product.thumbnail,
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
+                        return InkWell(
+                          onTap: () {
+                            GoRouter.of(context).push(
+                              RouterApp.details,
+                              extra: product,
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Image.network(
+                                    product.thumbnail,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                product.title,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                const SizedBox(height: 8),
+                                Text(
+                                  product.title,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              Text("\$${product.price}"),
-                            ],
+                                Text("\$${product.price}"),
+                              ],
+                            ),
                           ),
                         );
                       },
